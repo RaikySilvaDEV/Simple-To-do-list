@@ -5,11 +5,10 @@ const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3001';
 export const getAllTodos = async (): Promise<ITask[]> => {
   const res = await fetch(`${baseUrl}/tasks`, { cache: 'no-store' });
   if (!res.ok) {
-    // Isso ativará o Error Boundary mais próximo do Next.js
     throw new Error('Failed to fetch tasks');
   }
   const todos = await res.json();
-  return todos; 
+  return todos;
 }
 
 export const addTodo = async (todo: ITask): Promise<ITask> => {
@@ -19,7 +18,7 @@ export const addTodo = async (todo: ITask): Promise<ITask> => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(todo)
-  })
+  });
   if (!res.ok) {
     throw new Error('Failed to add task');
   }
@@ -34,7 +33,7 @@ export const editTodo = async (todo: ITask): Promise<ITask> => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(todo)
-  })
+  });
   if (!res.ok) {
     throw new Error('Failed to edit task');
   }
@@ -45,7 +44,7 @@ export const editTodo = async (todo: ITask): Promise<ITask> => {
 export const deleteTodo = async (id: string): Promise<void> => {
   const res = await fetch(`${baseUrl}/tasks/${id}`, {
     method: 'DELETE',
-  })
+  });
   if (!res.ok) {
     throw new Error('Failed to delete task');
   }
